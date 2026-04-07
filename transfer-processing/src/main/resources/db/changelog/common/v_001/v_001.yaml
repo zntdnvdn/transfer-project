@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/common/v_001/create_table_processed_events.yaml
+  - include:
+      file: db/changelog/common/v_001/create_table_transfer_processing_results.yaml
