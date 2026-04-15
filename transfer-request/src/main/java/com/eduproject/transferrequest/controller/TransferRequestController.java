@@ -2,6 +2,7 @@ package com.eduproject.transferrequest.controller;
 
 import com.eduproject.transferrequest.dto.rq.CreateTransferRequest;
 import com.eduproject.transferrequest.dto.rs.CreateTransferResponse;
+import com.eduproject.transferrequest.dto.rs.TransferResponse;
 import com.eduproject.transferrequest.service.TransferRequestProcessor;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,10 +27,10 @@ public class TransferRequestController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-//    @GetMapping("/{requestId}")
-//    public ResponseEntity<TransferResponse> getTransfer(@PathVariable String requestId) {
-//        TransferResponse response = transferRequestProcessor.getByRequestId(requestId);
-//        return ResponseEntity.ok(response);
-//    }
+    @GetMapping("/{requestId}")
+    public ResponseEntity<TransferResponse> getTransfer(@PathVariable String requestId) {
+        TransferResponse response = transferRequestProcessor.getByRequestId(requestId);
+        return ResponseEntity.ok(response);
+    }
 }
 

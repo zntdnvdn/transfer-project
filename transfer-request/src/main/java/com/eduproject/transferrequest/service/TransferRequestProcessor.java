@@ -7,6 +7,8 @@ import com.eduproject.transferrequest.dto.model.OutboxEventDto;
 import com.eduproject.transferrequest.dto.model.TransferRequestDto;
 import com.eduproject.transferrequest.dto.rq.CreateTransferRequest;
 import com.eduproject.transferrequest.dto.rs.CreateTransferResponse;
+import com.eduproject.transferrequest.dto.rs.TransferResponse;
+import com.eduproject.transferrequest.exceptions.TransferRequestNotFoundException;
 import com.eduproject.transferrequest.service.factory.OutboxEventFactory;
 import com.eduproject.transferrequest.service.factory.TransferEventFactory;
 import com.eduproject.transferrequest.utils.DtoUtils;
@@ -47,6 +49,19 @@ public class TransferRequestProcessor {
                 event.getEventId());
 
         return new CreateTransferResponse(
+                transferRequestDto.getRequestId(),
+                transferRequestDto.getStatus()
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public TransferResponse getByRequestId(String requestId) {
+        log.info("Get transfer by requestId={}", requestId);
+
+        TransferRequestDto transferRequestDto = transferRequestService.getByRequestId(requestId)
+                .orElseThrow(() -> new TransferRequestNotFoundException(requestId));
+
+        return new TransferResponse(
                 transferRequestDto.getRequestId(),
                 transferRequestDto.getStatus()
         );
